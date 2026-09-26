@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY PORTFOLIO</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- SplideのCSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
+  >
+
+  <style>
+    /* スライダーの下にページ切り替えボタンの場所を確保 */
+    .splide {
+      padding-bottom: 3rem;
+    }
+
+    .splide__pagination__page.is-active {
+      background: #4f46e5;
+    }
+
+    /* ページ表示時のアニメーション */
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      animation: fade-up 0.7s ease-out both;
+    }
+
+    /* 動きを減らす設定の利用者にはアニメーションを止める */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+  <!-- ヘッダー -->
+  <header id="top" class="border-b border-slate-200 bg-white">
+    <nav
+      aria-label="メインナビゲーション"
+      class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-5"
+    >
+      <a href="#top" class="font-bold tracking-widest text-indigo-600">
+        MY PORTFOLIO
+      </a>
+
+      <div class="flex gap-5 text-sm font-bold">
+        <a href="#about" class="hover:text-indigo-600">自己紹介</a>
+        <a href="#skills" class="hover:text-indigo-600">スキル</a>
+        <a href="#works" class="hover:text-indigo-600">作品</a>
+      </div>
+    </nav>
+
+    <div class="fade-up mx-auto max-w-5xl px-6 py-20 sm:py-28">
+      <p class="mb-4 text-sm font-bold tracking-widest text-indigo-600">
+        LEARNING & CREATING
+      </p>
+
+      <!-- 自分のあだ名に変更 -->
+      <h1 class="text-4xl font-bold leading-tight sm:text-6xl">
+        こんにちは、<br>
+        <span class="text-indigo-600">ニックネーム</span>です。
+      </h1>
+
+      <p class="mt-6 max-w-xl leading-8 text-slate-600">
+        一つずつ理解して、一つずつ形に。<br>
+        Web制作を学びながら、できることを増やしています。
+      </p>
+
+      <!-- ホバーアニメーション①：ボタンを少し拡大 -->
+      <a
+        href="#works"
+        class="mt-8 inline-block rounded-full bg-indigo-600 px-8 py-4 font-bold text-white transition-all duration-300 hover:scale-105 hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600 motion-reduce:transform-none motion-reduce:transition-none"
+      >
+        作品を見る →
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl space-y-20 px-6 py-16">
+    <!-- 自己紹介 -->
+    <section id="about" aria-labelledby="about-title" class="scroll-mt-8">
+      <p class="text-sm font-bold tracking-widest text-indigo-600">
+        ABOUT ME
+      </p>
+      <h2 id="about-title" class="mt-2 text-3xl font-bold">
+        自己紹介
+      </h2>
+
+      <div class="mt-6 rounded-2xl bg-white p-6 shadow-sm sm:p-8">
+        <p class="leading-8 text-slate-600">
+          POSSEでWeb制作を学んでいます。
+          HTMLやTailwind CSSを使ったページ作りから、
+          JavaScriptを使った動きのある画面作りまで挑戦しています。
+        </p>
+        <p class="mt-4 leading-8 text-slate-600">
+          今の目標は、コードの意味を理解してから使うことです。
+          分からない部分をそのままにせず、
+          自分の言葉で説明できるように学習を進めていきます。
+        </p>
+      </div>
+    </section>
+
+    <!-- スキルリスト -->
+    <section id="skills" aria-labelledby="skills-title" class="scroll-mt-8">
+      <p class="text-sm font-bold tracking-widest text-indigo-600">
+        SKILLS
+      </p>
+      <h2 id="skills-title" class="mt-2 text-3xl font-bold">
+        学んでいる技術
+      </h2>
+
+      <!-- ホバーアニメーション②：カードを少し上に移動 -->
+      <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+        <li class="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none">
+          <h3 class="text-lg font-bold text-indigo-600">HTML</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            見出し・文章・フォームなど、ページの構造を作ります。
+          </p>
+        </li>
+
+        <li class="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none">
+          <h3 class="text-lg font-bold text-indigo-600">Tailwind CSS</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            クラスを使って色・余白・レイアウトを整えます。
+          </p>
+        </li>
+
+        <li class="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none">
+          <h3 class="text-lg font-bold text-indigo-600">JavaScript</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            入力チェックやAPIからのデータ取得を学んでいます。
+          </p>
+        </li>
+
+        <li class="rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg motion-reduce:transform-none motion-reduce:transition-none">
+          <h3 class="text-lg font-bold text-indigo-600">CSS Animation / Splide</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-600">
+            要素の動きや、作品を切り替えるスライダーを作ります。
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 作品スライダー -->
+    <section id="works" aria-labelledby="works-title" class="scroll-mt-8">
+      <p class="text-sm font-bold tracking-widest text-indigo-600">
+        WORKS
+      </p>
+      <h2 id="works-title" class="mt-2 text-3xl font-bold">
+        学習で取り組んだ作品
+      </h2>
+      <p class="mt-3 text-sm leading-6 text-slate-500">
+        矢印やスワイプで切り替えられます。画像は仮のイメージです。
+      </p>
+
+      <section
+        class="splide mt-8"
+        aria-label="作品一覧"
+      >
+        <div class="splide__track">
+          <ul class="splide__list">
+            <!-- スライド① -->
+            <li class="splide__slide">
+              <article class="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                <!-- group-hoverで子要素の表示を変える -->
+                <a
+                  href="#work-team"
+                  aria-label="チームメンバー一覧の詳細を見る"
+                  class="group relative block overflow-hidden focus-visible:outline-4 focus-visible:outline-indigo-600 focus-visible:-outline-offset-4"
+                >
+                  <img
+                    src="https://placehold.co/800x500/e0e7ff/3730a3?text=TEAM"
+                    alt="チームメンバー一覧の仮サムネイル"
+                    width="800"
+                    height="500"
+                    loading="lazy"
+                    class="aspect-[8/5] w-full object-cover transition-all duration-300 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
+                  >
+                  <span class="absolute inset-0 flex items-center justify-center bg-slate-900/60 font-bold text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
+                    詳細を見る →
+                  </span>
+                </a>
+
+                <div class="p-6">
+                  <p class="text-xs font-bold text-indigo-600">WEEK 08</p>
+                  <h3 class="mt-2 text-xl font-bold">チームメンバー一覧</h3>
+                  <p class="mt-3 text-sm leading-6 text-slate-600">
+                    配列のデータからカードを作り、役割で絞り込むページ。
+                  </p>
+                  <a href="#work-team" class="mt-4 inline-block text-sm font-bold text-indigo-600 underline">
+                    作品の説明を読む
+                  </a>
+                </div>
+              </article>
+            </li>
+
+            <!-- スライド② -->
+            <li class="splide__slide">
+              <article class="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                <a
+                  href="#work-form"
+                  aria-label="ユーザー登録フォームの詳細を見る"
+                  class="group relative block overflow-hidden focus-visible:outline-4 focus-visible:outline-indigo-600 focus-visible:-outline-offset-4"
+                >
+                  <img
+                    src="https://placehold.co/800x500/fce7f3/9d174d?text=FORM"
+                    alt="ユーザー登録フォームの仮サムネイル"
+                    width="800"
+                    height="500"
+                    loading="lazy"
+                    class="aspect-[8/5] w-full object-cover transition-all duration-300 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
+                  >
+                  <span class="absolute inset-0 flex items-center justify-center bg-slate-900/60 font-bold text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
+                    詳細を見る →
+                  </span>
+                </a>
+
+                <div class="p-6">
+                  <p class="text-xs font-bold text-indigo-600">WEEK 09</p>
+                  <h3 class="mt-2 text-xl font-bold">ユーザー登録フォーム</h3>
+                  <p class="mt-3 text-sm leading-6 text-slate-600">
+                    入力内容をチェックし、エラーや成功メッセージを表示。
+                  </p>
+                  <a href="#work-form" class="mt-4 inline-block text-sm font-bold text-indigo-600 underline">
+                    作品の説明を読む
+                  </a>
+                </div>
+              </article>
+            </li>
+
+            <!-- スライド③ -->
+            <li class="splide__slide">
+              <article class="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                <a
+                  href="#work-api"
+                  aria-label="GitHubユーザー検索の詳細を見る"
+                  class="group relative block overflow-hidden focus-visible:outline-4 focus-visible:outline-indigo-600 focus-visible:-outline-offset-4"
+                >
+                  <img
+                    src="https://placehold.co/800x500/d1fae5/065f46?text=GITHUB"
+                    alt="GitHubユーザー検索の仮サムネイル"
+                    width="800"
+                    height="500"
+                    loading="lazy"
+                    class="aspect-[8/5] w-full object-cover transition-all duration-300 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
+                  >
+                  <span class="absolute inset-0 flex items-center justify-center bg-slate-900/60 font-bold text-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
+                    詳細を見る →
+                  </span>
+                </a>
+
+                <div class="p-6">
+                  <p class="text-xs font-bold text-indigo-600">WEEK 10</p>
+                  <h3 class="mt-2 text-xl font-bold">GitHubユーザー検索</h3>
+                  <p class="mt-3 text-sm leading-6 text-slate-600">
+                    GitHub APIからプロフィール情報を取得して表示。
+                  </p>
+                  <a href="#work-api" class="mt-4 inline-block text-sm font-bold text-indigo-600 underline">
+                    作品の説明を読む
+                  </a>
+                </div>
+              </article>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 実在するページ内リンク先 -->
+      <div class="mt-8 space-y-4">
+        <article id="work-team" class="scroll-mt-8 rounded-xl bg-white p-6 shadow-sm">
+          <h3 class="font-bold">チームメンバー一覧について</h3>
+          <p class="mt-2 text-sm leading-7 text-slate-600">
+            配列とオブジェクトでメンバー情報を管理し、
+            forEachでカードを生成する課題です。
+            filterによる役割の絞り込みにも取り組みました。
+          </p>
+        </article>
+
+        <article id="work-form" class="scroll-mt-8 rounded-xl bg-white p-6 shadow-sm">
+          <h3 class="font-bold">ユーザー登録フォームについて</h3>
+          <p class="mt-2 text-sm leading-7 text-slate-600">
+            valueとcheckedで入力を取得し、未入力や文字数を確認する課題です。
+            エラーを各入力欄の下に表示する構成にしました。
+          </p>
+        </article>
+
+        <article id="work-api" class="scroll-mt-8 rounded-xl bg-white p-6 shadow-sm">
+          <h3 class="font-bold">GitHubユーザー検索について</h3>
+          <p class="mt-2 text-sm leading-7 text-slate-600">
+            fetchとasync/awaitでデータを取得する課題です。
+            APIからすぐに返答が届くとは限らないため、
+            結果を待ってから表示する必要があると学びました。
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer class="border-t border-slate-200 bg-white px-6 py-8 text-center">
+    <a href="#top" class="text-sm font-bold text-indigo-600 hover:underline">
+      ページの先頭へ ↑
+    </a>
+    <p class="mt-4 text-xs text-slate-500">
+      © MY PORTFOLIO
+    </p>
+  </footer>
+
+  <!-- Splide本体を先に読み込む -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+
+  <!-- HTMLとSplide本体の後に初期化する -->
+  <script>
+    new Splide(".splide", {
+      type: "loop",       // 最後の作品の次に最初の作品を表示
+      perPage: 2,          // PCでは2枚表示
+      perMove: 1,          // 1回の操作で1枚移動
+      gap: "1.5rem",       // スライド間の余白
+      autoplay: false,     // 自分のペースで読むため自動再生しない
+      speed: 500,          // 切り替えにかける時間（ミリ秒）
+      pagination: true,   // 下部のページ切り替えボタンを表示
+      arrows: true,       // 左右の矢印を表示
+      breakpoints: {
+        640: {
+          perPage: 1,      // 640px以下では1枚表示
+          gap: "1rem"
+        }
+      }
+    }).mount();           // 設定したスライダーを開始
+  </script>
+</body>
+</html>
