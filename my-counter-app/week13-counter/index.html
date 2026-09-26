@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カウンターアプリ</title>
+</head>
+
+<body>
+  <main class="counter-card">
+    <p class="eyebrow">MY FIRST VITE APP</p>
+    <h1>カウンター</h1>
+    <p class="description">
+      ボタンを押して数字を変えてみよう。
+    </p>
+
+    <p
+      id="count"
+      class="count"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+      aria-label="現在のカウント"
+    >0</p>
+
+    <div class="buttons">
+      <button id="decrease" type="button" aria-label="1減らす">
+        −
+      </button>
+
+      <button id="reset" type="button" class="reset">
+        リセット
+      </button>
+
+      <button id="increase" type="button" aria-label="1増やす">
+        ＋
+      </button>
+    </div>
+
+    <p class="hint">マイナスの数にもできます。</p>
+  </main>
+
+  <!-- importを使うJavaScriptなのでtype="module"を指定 -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
