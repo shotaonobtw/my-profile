@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOリスト</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-4 sm:p-8">
+
+    <!-- レスポンシブ対応コンテナ（スマホ〜PC対応） -->
+    <div class="max-w-md w-full mx-auto bg-white p-6 rounded-xl shadow-md mt-6 sm:mt-12">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center sm:text-left">TODOリスト</h1>
+        
+        <!-- 入力エリア -->
+        <div class="flex gap-2 mb-6">
+            <input type="text" id="taskInput" placeholder="タスクを入力してください" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-base">
+            <button id="addButton" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition shrink-0">追加</button>
+        </div>
+
+        <!-- タスクリスト -->
+        <ul id="taskList" class="divide-y divide-gray-200"></ul>
+    </div>
+
+    <script>
+        // ① querySelector で要素を取得
+        const taskInput = document.querySelector('#taskInput');
+        const addButton = document.querySelector('#addButton');
+        const taskList = document.querySelector('#taskList');
+
+        // ② addEventListener('click', ...) でイベントを登録
+        addButton.addEventListener('click', () => {
+            // ③ input.value で入力値を取得
+            const taskText = taskInput.value.trim();
+
+            // ④ 空のテキストは追加されないように処理を終了
+            if (taskText === '') {
+                return;
+            }
+
+            // 新しいタスク要素を作成
+            const li = document.createElement('li');
+            li.className = 'flex items-center justify-between py-3 gap-2';
+
+            const span = document.createElement('span');
+            span.textContent = taskText;
+            span.className = 'flex-1 text-gray-800 break-all';
+
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'flex gap-2 shrink-0';
+
+            const completeBtn = document.createElement('button');
+            completeBtn.textContent = '完了';
+            completeBtn.className = 'px-3 py-1 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 transition';
+            
+            // 完了ボタンに addEventListener('click', ...) を登録
+            completeBtn.addEventListener('click', () => {
+                // ⑤ classList.toggle でスタイル（打ち消し線・グレーアウト）を切り替え
+                span.classList.toggle('line-through');
+                span.classList.toggle('text-gray-400');
+            });
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '削除';
+            deleteBtn.className = 'px-3 py-1 bg-red-600 text-white text-sm rounded-md hover:bg-red-700 transition';
+
+            // 削除ボタンに addEventListener('click', ...) を登録（UX設計）
+            deleteBtn.addEventListener('click', () => {
+                const isCompleted = span.classList.contains('line-through');
+
+                if (isCompleted) {
+                    li.remove();
+                } else {
+                    const result = confirm('このタスクはまだ完了していません。本当に削除しますか？');
+                    if (result) {
+                        li.remove();
+                    }
+                }
+            });
+
+            // 要素を組み合わせて画面に追加
+            btnGroup.appendChild(completeBtn);
+            btnGroup.appendChild(deleteBtn);
+            li.appendChild(span);
+            li.appendChild(btnGroup);
+            taskList.appendChild(li);
+
+            // 追加後、入力欄をクリア
+            taskInput.value = '';
+        });
+    </script>
+</body>
+</html>
