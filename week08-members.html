@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>チームメンバー一覧</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-slate-100 text-slate-800">
+  <main class="mx-auto max-w-6xl px-6 py-16">
+    <header class="mb-10 text-center">
+      <p class="mb-3 text-sm font-bold tracking-widest text-indigo-600">
+        OUR TEAM
+      </p>
+      <h1 class="text-3xl font-bold sm:text-4xl">
+        チームメンバー紹介
+      </h1>
+      <p class="mt-4 text-slate-500">
+        それぞれの得意を持ち寄って、アイデアを形にする5人です。
+      </p>
+    </header>
+
+    <!-- 役割による絞り込みボタン -->
+    <div
+      class="mb-8 flex flex-wrap justify-center gap-3"
+      role="group"
+      aria-label="役割で絞り込み"
+    >
+      <button
+        type="button"
+        data-role="全員"
+        aria-pressed="true"
+        class="filter-button cursor-pointer rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-bold text-indigo-700 transition hover:shadow-md aria-pressed:bg-indigo-600 aria-pressed:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600"
+      >
+        全員
+      </button>
+
+      <button
+        type="button"
+        data-role="エンジニア"
+        aria-pressed="false"
+        class="filter-button cursor-pointer rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-bold text-indigo-700 transition hover:shadow-md aria-pressed:bg-indigo-600 aria-pressed:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600"
+      >
+        エンジニア
+      </button>
+
+      <button
+        type="button"
+        data-role="デザイナー"
+        aria-pressed="false"
+        class="filter-button cursor-pointer rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-bold text-indigo-700 transition hover:shadow-md aria-pressed:bg-indigo-600 aria-pressed:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600"
+      >
+        デザイナー
+      </button>
+
+      <button
+        type="button"
+        data-role="リーダー"
+        aria-pressed="false"
+        class="filter-button cursor-pointer rounded-full border border-indigo-200 bg-white px-5 py-2 text-sm font-bold text-indigo-700 transition hover:shadow-md aria-pressed:bg-indigo-600 aria-pressed:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600"
+      >
+        リーダー
+      </button>
+    </div>
+
+    <p
+      id="member-count"
+      class="mb-4 text-sm text-slate-500"
+      role="status"
+    ></p>
+
+    <!-- JavaScriptで生成したカードをここに追加 -->
+    <div
+      id="member-list"
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+    ></div>
+  </main>
+
+  <script>
+    // 5人の情報を、オブジェクトを入れた配列として定義
+    // 初期表示はチームに加入した順（配列に登録した順）
+    const members = [
+      {
+        name: "田中 太郎",
+        role: "リーダー",
+        comment: "みんなのアイデアをまとめて、楽しく挑戦できるチームをつくります！"
+      },
+      {
+        name: "佐藤 花子",
+        role: "エンジニア",
+        comment: "使いやすさを大切にしながら、一つひとつ丁寧に実装します！"
+      },
+      {
+        name: "鈴木 一郎",
+        role: "デザイナー",
+        comment: "見た人がワクワクするような、親しみやすいデザインを目指します！"
+      },
+      {
+        name: "高橋 美咲",
+        role: "エンジニア",
+        comment: "新しい技術を学ぶのが好きです。難しい課題にも粘り強く取り組みます！"
+      },
+      {
+        name: "伊藤 健太",
+        role: "デザイナー",
+        comment: "色やレイアウトを工夫して、伝えたいことが伝わる画面をつくります！"
+      }
+    ];
+
+    const memberList = document.getElementById("member-list");
+    const memberCount = document.getElementById("member-count");
+    const filterButtons = document.querySelectorAll(".filter-button");
+
+    // 受け取った配列をもとにカードを表示する関数
+    function renderMembers(displayMembers) {
+      // 絞り込み時にカードが重複しないよう、前の表示を空にする
+      memberList.replaceChildren();
+
+      // forEachでメンバーを1人ずつ取り出す
+      displayMembers.forEach((member) => {
+        const card = document.createElement("article");
+        card.className =
+          "rounded-2xl border border-slate-200 bg-white p-6 shadow-md";
+
+        const role = document.createElement("p");
+        role.className =
+          "mb-4 inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold text-indigo-600";
+        role.textContent = member.role;
+
+        const name = document.createElement("h2");
+        name.className = "mb-3 text-xl font-bold";
+        name.textContent = member.name;
+
+        const comment = document.createElement("p");
+        comment.className = "text-sm leading-7 text-slate-600";
+        comment.textContent = member.comment;
+
+        // 名前・役割・コメントをカードに追加
+        card.append(role, name, comment);
+
+        // 完成したカードをページに追加
+        memberList.appendChild(card);
+      });
+
+      memberCount.textContent =
+        `${members.length}人中 ${displayMembers.length}人を表示`;
+    }
+
+    // 各ボタンにクリック時の処理を設定
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedRole = button.dataset.role;
+
+        // 「全員」以外はfilterで役割が一致する人を取り出す
+        const filteredMembers = selectedRole === "全員"
+          ? members
+          : members.filter((member) => member.role === selectedRole);
+
+        renderMembers(filteredMembers);
+
+        // 選択状態とボタンの見た目を更新
+        filterButtons.forEach((filterButton) => {
+          filterButton.setAttribute(
+            "aria-pressed",
+            String(filterButton === button)
+          );
+        });
+      });
+    });
+
+    // ページを開いたときは全員を表示
+    renderMembers(members);
+  </script>
+</body>
+</html>
