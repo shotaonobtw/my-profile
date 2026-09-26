@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ユーザー登録フォーム</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="min-h-screen bg-slate-100 px-4 py-10 text-slate-800">
+  <main class="mx-auto max-w-lg rounded-2xl bg-white p-6 shadow-lg sm:p-10">
+    <header class="mb-8 text-center">
+      <p class="mb-2 text-sm font-bold tracking-widest text-indigo-600">
+        JOIN US
+      </p>
+      <h1 class="text-3xl font-bold">ユーザー登録</h1>
+      <p class="mt-3 text-sm text-slate-500">
+        すべての項目を入力してください。
+      </p>
+    </header>
+
+    <!--
+      requiredは必須項目であることを示すために設定。
+      novalidateでブラウザの自動チェックを止め、
+      JavaScriptで独自のエラーメッセージを表示する。
+    -->
+    <form id="register-form" novalidate class="space-y-6">
+      <div>
+        <label for="name" class="mb-2 block text-sm font-bold">
+          名前 <span class="text-red-600">（必須）</span>
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          autocomplete="name"
+          required
+          aria-describedby="name-error"
+          class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 aria-[invalid=true]:border-red-500"
+        >
+        <p id="name-error" class="mt-2 text-sm text-red-600"></p>
+      </div>
+
+      <div>
+        <label for="email" class="mb-2 block text-sm font-bold">
+          メールアドレス <span class="text-red-600">（必須）</span>
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+          aria-describedby="email-error"
+          class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 aria-[invalid=true]:border-red-500"
+        >
+        <p id="email-error" class="mt-2 text-sm text-red-600"></p>
+      </div>
+
+      <div>
+        <label for="password" class="mb-2 block text-sm font-bold">
+          パスワード <span class="text-red-600">（必須）</span>
+        </label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="new-password"
+          minlength="8"
+          required
+          aria-describedby="password-hint password-error"
+          class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 aria-[invalid=true]:border-red-500"
+        >
+        <p id="password-hint" class="mt-2 text-xs text-slate-500">
+          8文字以上で入力してください。
+        </p>
+        <p id="password-error" class="mt-2 text-sm text-red-600"></p>
+      </div>
+
+      <div>
+        <label for="password-confirm" class="mb-2 block text-sm font-bold">
+          パスワード（確認用）
+          <span class="text-red-600">（必須）</span>
+        </label>
+        <input
+          id="password-confirm"
+          name="passwordConfirm"
+          type="password"
+          autocomplete="new-password"
+          required
+          aria-describedby="password-confirm-error"
+          class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 aria-[invalid=true]:border-red-500"
+        >
+        <p
+          id="password-confirm-error"
+          class="mt-2 text-sm text-red-600"
+        ></p>
+      </div>
+
+      <div>
+        <details class="mb-4 rounded-lg bg-slate-50 p-4 text-sm">
+          <summary class="cursor-pointer font-bold">
+            利用規約（課題用サンプル）
+          </summary>
+          <p class="mt-3 leading-6 text-slate-600">
+            このページは学習用の登録フォームです。
+            入力内容はサーバーへ送信・保存されず、
+            実際のアカウントは作成されません。
+          </p>
+        </details>
+
+        <div class="flex items-start gap-3">
+          <input
+            id="terms"
+            name="terms"
+            type="checkbox"
+            required
+            aria-describedby="terms-error"
+            class="mt-1 h-4 w-4 shrink-0 accent-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+          <label for="terms" class="text-sm leading-6">
+            利用規約に同意します
+            <span class="font-bold text-red-600">（必須）</span>
+          </label>
+        </div>
+        <p id="terms-error" class="mt-2 text-sm text-red-600"></p>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full cursor-pointer rounded-lg bg-indigo-600 px-4 py-3 font-bold text-white transition hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600"
+      >
+        登録する
+      </button>
+
+      <!-- 送信結果を表示する場所 -->
+      <p
+        id="form-message"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        class="text-sm font-bold"
+      ></p>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById("register-form");
+
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const confirmInput = document.getElementById("password-confirm");
+    const termsInput = document.getElementById("terms");
+
+    const formMessage = document.getElementById("form-message");
+
+    const inputs = [
+      nameInput,
+      emailInput,
+      passwordInput,
+      confirmInput,
+      termsInput
+    ];
+
+    // 指定した入力欄の下にエラーを表示する
+    function showError(input, message) {
+      const errorElement = document.getElementById(
+        `${input.id}-error`
+      );
+
+      errorElement.textContent = message;
+      input.setAttribute("aria-invalid", "true");
+    }
+
+    // 前回のエラーと送信結果を消す
+    function clearFeedback() {
+      inputs.forEach((input) => {
+        document.getElementById(`${input.id}-error`).textContent = "";
+        input.removeAttribute("aria-invalid");
+      });
+
+      formMessage.textContent = "";
+    }
+
+    form.addEventListener("submit", (event) => {
+      // 通常のフォーム送信によるページ移動・リロードを止める
+      event.preventDefault();
+
+      clearFeedback();
+
+      // テキスト系は.valueで取得する
+      // 名前とメールは前後の不要な空白を取り除く
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+
+      // パスワードは入力された値をそのまま扱う
+      const password = passwordInput.value;
+      const passwordConfirm = confirmInput.value;
+
+      // チェックボックスは.checkedでチェック状態を取得する
+      const agreed = termsInput.checked;
+
+      // エラーのある入力欄を記録する
+      const invalidInputs = [];
+
+      function addError(input, message) {
+        showError(input, message);
+        invalidInputs.push(input);
+      }
+
+      // 1. 名前の必須チェック
+      if (name === "") {
+        addError(nameInput, "名前を入力してください。");
+      }
+
+      // 2. メールの必須チェック → 形式チェック
+      // @の前後とドットの後に文字があるかを簡易チェックする
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (email === "") {
+        addError(emailInput, "メールアドレスを入力してください。");
+      } else if (!emailPattern.test(email)) {
+        addError(
+          emailInput,
+          "メールアドレスを正しい形式で入力してください（例：sample@example.com）。"
+        );
+      }
+
+      // 3. パスワードの必須チェック → 文字数チェック
+      // 空白だけの入力も未入力として扱う
+      if (password.trim() === "") {
+        addError(passwordInput, "パスワードを入力してください。");
+      } else if (password.length < 8) {
+        addError(
+          passwordInput,
+          "パスワードは8文字以上で入力してください。"
+        );
+      }
+
+      // 4. 確認用パスワードの必須チェック → 一致チェック
+      if (passwordConfirm.trim() === "") {
+        addError(
+          confirmInput,
+          "確認用パスワードを入力してください。"
+        );
+      } else if (password !== passwordConfirm) {
+        addError(
+          confirmInput,
+          "パスワードが一致しません。同じパスワードを入力してください。"
+        );
+      }
+
+      // 5. 利用規約の同意チェック
+      if (!agreed) {
+        addError(termsInput, "利用規約に同意してください。");
+      }
+
+      // エラーがあれば、件数を表示して最初のエラー欄へ移動
+      if (invalidInputs.length > 0) {
+        formMessage.className =
+          "rounded-lg bg-red-50 p-4 text-sm font-bold text-red-700";
+        formMessage.textContent =
+          `${invalidInputs.length}件の入力内容を確認してください。`;
+
+        invalidInputs[0].focus();
+        return;
+      }
+
+      // すべてのチェックを通過したら成功メッセージを表示
+      formMessage.className =
+        "rounded-lg bg-emerald-50 p-4 text-sm font-bold text-emerald-700";
+      formMessage.textContent =
+        "登録完了！（学習用のため、実際の送信・保存は行っていません）";
+
+      form.reset();
+    });
+
+    // 編集を再開したら、古い送信結果のメッセージを消す
+    form.addEventListener("input", () => {
+      formMessage.textContent = "";
+      formMessage.className = "text-sm font-bold";
+    });
+  </script>
+</body>
+</html>
