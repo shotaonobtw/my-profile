@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root { font-family: system-ui, sans-serif; color: #26364c; background: #dfecfa; }
+body { margin: 0; min-width: 320px; }
+/* 青い領域を約6割、桃色の領域を約4割に。雲のような白を重ねる。 */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 12% 23%, #ffffffb8 0%, transparent 35%),
+    radial-gradient(ellipse at 84% 75%, #fff9e6b8 0%, transparent 30%),
+    radial-gradient(ellipse at 45% 52%, #ffffffa3 0%, transparent 35%),
+    linear-gradient(125deg, #c3e7f4 0%, #ccddf8 35%, #dce4fa 56%, #efddec 64%, #f8d5df 83%, #ffe5d7 100%);
+}
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid #6466a5; outline-offset: 5px; }
+.fortune-stage { perspective: 1400px; scroll-margin-top: 24px; }
+.fortune-frame { position: relative; padding: 10px; border-radius: 28px; background: #ffffff80; }
+.fortune-frame--drawn {
+  background: linear-gradient(135deg, #806027, #f5dea0 18%, #b8852c 37%, #fff1b9 50%, #b88935 67%, #eccc7e 83%, #785320);
+  box-shadow: 0 18px 50px #86684426, inset 0 0 0 1px #fff8d4, inset 0 0 0 4px #bd923f;
+  animation: frame-arrive .4s ease-out 1.9s both;
+}
+.fortune-frame--drawn::after { content: ""; position: absolute; inset: 5px; border: 1px solid #fff6c5aa; border-radius: 23px; pointer-events: none; }
+.fortune-card { position: relative; isolation: isolate; overflow: hidden; border-radius: 19px; background: linear-gradient(150deg, #fffdf7, #f8f2e8); color: #35423f; box-shadow: 0 2px 8px #68573720; }
+.fortune-card--drawn { animation: card-turn 1s linear both; }
+.fortune-content { position: relative; padding: 28px; }
+.rainbow-sweep { position: absolute; pointer-events: none; z-index: 2; inset: -60%; opacity: 0;
+  background: linear-gradient(110deg, transparent 28%, #ff9faa70 36%, #ffe99b99 41%, #b9f4ba99 46%, #9be5ff99 51%, #bcadff99 56%, #f6b5ed70 61%, transparent 70%);
+  mix-blend-mode: multiply; animation: rainbow-pass .9s ease-in-out 1s both;
+}
+@keyframes rainbow-pass { 0% { transform: translateX(-65%); opacity: 0; } 20% { opacity: 1; } 75% { opacity: 1; } 100% { transform: translateX(65%); opacity: 0; } }
+@keyframes card-turn { from { transform: perspective(1400px) rotateY(0deg); } to { transform: perspective(1400px) rotateY(7200deg); } }
+/* 額縁の背景は最後に現れ、カードを囲んだまま残る。 */
+@keyframes frame-arrive { from { background: #ffffff80; box-shadow: 0 0 0 transparent; } to { background: linear-gradient(135deg, #806027, #f5dea0 18%, #b8852c 37%, #fff1b9 50%, #b88935 67%, #eccc7e 83%, #785320); box-shadow: 0 18px 50px #86684426, inset 0 0 0 1px #fff8d4, inset 0 0 0 4px #bd923f; } }
+@media (min-width: 640px) { .fortune-content { padding: 36px; } }
+@media (prefers-reduced-motion: reduce) {
+  .rainbow-sweep { display: none; }
+  .fortune-card--drawn { animation-duration: .001s; animation-delay: 0s; }
+  .fortune-frame--drawn { animation-duration: .001s; animation-delay: 0s; }
+}
